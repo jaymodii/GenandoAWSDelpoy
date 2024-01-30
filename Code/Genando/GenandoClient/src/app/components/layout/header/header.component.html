@@ -1,0 +1,292 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light header-nav-container">
+  <div class="container-fluid header-container">
+    <a class="logo-link" (click)="toggleIconContainer()">
+      <img src="/assets/images/logo-main.png" class="genando-logo" alt="logo" />
+    </a>
+    <div class="icon-container" id="navbarNav" *ngIf="isIconContainerVisible">
+      <div class="navbar-nav ml-auto icon-list">
+        <div
+          class="nav-item icon-item"
+          *ngFor="let link of links; let i = index"
+          [ngClass]="{ active: activeLinkIndex === i }"
+          (click)="setActiveLink(i)"
+        >
+          <a routerLink="{{ link.route }}" class="nav-link">
+            <img [src]="link.icon" alt="{{ link.text }}" class="icon" />
+            <span class="icon-text">{{ link.text }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <div class="bell-icon-container" [autoClose]="'outside'" ngbDropdown>
+        <div
+          class="nav-link"
+          ngbDropdownToggle
+          (click)="getNotificationMessage(); closeToggleDropdown()"
+        >
+          <i class="bi bi-bell icon bell-icon"></i>
+          <div
+            class="number-circle"
+            *ngIf="notificationCount && notificationCount > 0"
+          >
+            {{ notificationCount }}
+          </div>
+        </div>
+        <div
+          ngbDropdownMenu
+          class="dropdown-menu bell-dropdown"
+          aria-labelledby="bellDropdown"
+        >
+          <div class="row d-flex align-items-center">
+            <div class="col-2">
+              <i class="bi bi-gear-fill" (click)="toggleGearDropdown()"></i>
+            </div>
+            <div class="col-4 p-0">
+              <div class="notification-heading">
+                {{
+                  tempDeletedNotifications
+                    ? "Deleted Notifications"
+                    : showSwipeActions
+                    ? "Swipe Actions Settings"
+                    : "Notifications"
+                }}
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="row d-flex align-items-center">
+                <div class="col-6">
+                  <button
+                    *ngIf="!tempDeletedNotifications && !showSwipeActions"
+                    class="notification-read-all"
+                    (click)="markAsReadNotifications(null)"
+                    [disabled]="!hasUnreadNotifications()"
+                  >
+                    Read All
+                  </button>
+                  <button
+                    *ngIf="tempDeletedNotifications"
+                    (click)="getNotificationMessage()"
+                    class="notification-back"
+                  >
+                    Back
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button
+                    *ngIf="!showSwipeActions"
+                    class="notification-clear-all"
+                    (click)="deleteNotifications(null)"
+                    [disabled]="notificationResult.length === 0"
+                  >
+                    Delete All
+                  </button>
+                  <button
+                    *ngIf="showSwipeActions"
+                    (click)="toggleSwipeActions(); getNotificationMessage()"
+                    class="notification-swipe-back"
+                  >
+                    Back
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="gearDropdownOpen" class="gear-dropdown-content">
+            <a class="dropdown-item" (click)="showDeletedNotifications()"
+              ><i class="bi bi-trash"></i>Deleted Notification
+            </a>
+            <a
+              class="dropdown-item"
+              (click)="toggleSwipeActions(); getSwipeSettings()"
+              ><i class="bi bi-sliders2"></i>Swipe Actions
+            </a>
+          </div>
+          <hr />
+          <div [ngClass]="{ 'scrollable-list': notificationResult.length > 7 }">
+            <ng-container *ngIf="showSwipeActions; else notificationsList">
+              <div class="swipe-actions-options" (click)="closeGearDropdown()">
+                <!-- swipe-right -->
+                <div
+                  class="d-flex flex-row justify-content-between align-items-center px-2"
+                >
+                  <div>Swipe Right</div>
+                  <div>
+                    <label for="swipe-right-delete">Delete</label>
+                    <input
+                      class="ms-1"
+                      type="radio"
+                      id="swipe-right-delete"
+                      name="swipe-right-delete"
+                      [(ngModel)]="swipeSetting.swipeRightAction"
+                      value="Delete"
+                    />
+                    <label class="ms-2" for="swipe-right-read"
+                      >Mark as Read</label
+                    >
+                    <input
+                      class="ms-1"
+                      type="radio"
+                      id="swipe-right-read"
+                      name="swipe-right-read"
+                      [(ngModel)]="swipeSetting.swipeRightAction"
+                      value="Read"
+                    />
+                  </div>
+                </div>
+                <button class="swipe-right-button shadow-sm">
+                  Swipe Right
+                </button>
+
+                <!-- swipe-left -->
+                <div
+                  class="d-flex flex-row justify-content-between align-items-center px-2 mt-3"
+                >
+                  <div>Swipe Left</div>
+                  <div>
+                    <label for="swipe-left-delete">Delete</label>
+                    <input
+                      class="ms-1"
+                      type="radio"
+                      id="swipe-left-delete"
+                      name="swipe-left-delete"
+                      [(ngModel)]="swipeSetting.swipeLeftAction"
+                      value="Delete"
+                    />
+                    <label class="ms-2" for="swipe-left-read"
+                      >Mark as Read</label
+                    >
+                    <input
+                      class="ms-1"
+                      type="radio"
+                      id="swipe-left-read"
+                      name="swipe-left-read"
+                      [(ngModel)]="swipeSetting.swipeLeftAction"
+                      value="Read"
+                    />
+                  </div>
+                </div>
+                <button class="swipe-left-button shadow-sm mb-2">
+                  Swipe Left
+                </button>
+              </div>
+              <button
+                class="notification-save-settings mt-2 mb-1"
+                (click)="saveSwipeActions()"
+              >
+                Save Changes
+              </button>
+            </ng-container>
+            <ng-template #notificationsList>
+              <div
+                *ngIf="
+                  notificationResult.length === 0;
+                  else notificationsContainer
+                "
+              >
+                <div class="no-notifications-message">
+                  There are currently no notifications to display...
+                </div>
+              </div>
+              <ng-template #notificationsContainer>
+                <div
+                  (swipeleft)="
+                    tempDeletedNotifications
+                      ? false
+                      : swipeLeftHandler(notification.id)
+                  "
+                  (swiperight)="
+                    tempDeletedNotifications
+                      ? false
+                      : swipeRightHandler(notification.id)
+                  "
+                  class="dropdown-item notification-dropdown"
+                  *ngFor="let notification of notificationResult"
+                >
+                  <div class="row d-flex align-items-center">
+                    <div class="col-4 infoCircleDiv">
+                      <div
+                        class="row d-flex align-items-center justify-content-center"
+                      >
+                        <div class="col-4 p-0">
+                          <i
+                            class="bi bi-circle-fill"
+                            *ngIf="!notification.hasRead"
+                          ></i>
+                        </div>
+                        <div class="col-8">
+                          <i class="bi bi-info-circle"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6 ps-4">
+                      <div class=" notification-message">
+                        <span>
+                          
+                          {{ notification.notificationMessage }}
+                        </span>
+                      </div>
+                      <div class="notification-time">
+                        {{ notification.time }}
+                      </div>
+                    </div>
+                    <div class="col-2 p-0">
+                      <i
+                        *ngIf="!tempDeletedNotifications"
+                        class="bi bi-three-dots-vertical"
+                        (click)="toggleDropdown(notification.id)"
+                      ></i>
+                      <div
+                        *ngIf="openDropdownId === notification.id"
+                        class="dropdown-content"
+                      >
+                        <a
+                          class="dropdown-item"
+                          (click)="deleteNotifications(notification.id)"
+                          >Delete</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div class="row profile-container">
+        <div class="col padding-remove">
+          <div ngbDropdown class="d-inline-block profile-button-container">
+            <button
+              type="button"
+              class="btn profile-button icon-text"
+              ngbDropdownToggle
+            >
+              <img [src]="avatar" class="profile-pic" />
+              <span class="user-name">{{ userName }}</span>
+              <i class="bi bi-chevron-down"></i>
+            </button>
+            <div
+              ngbDropdownMenu
+              class="drop-menu-profile"
+              aria-labelledby="dropdownBasic"
+            >
+              <a class="dropdown-item" routerLink="/profile" ngbDropdownItem>
+                <img
+                  class="profile-dropdown-icons my-profile-icon"
+                  src="/assets/images/ic-profile.svg"
+                /><span class="dropdown-menu-text">My Profile</span>
+              </a>
+              <a class="dropdown-item" ngbDropdownItem (click)="logout()">
+                <img
+                  class="profile-dropdown-icons"
+                  src="assets/images/ic-logout.svg"
+                /><span class="dropdown-menu-text">Logout</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

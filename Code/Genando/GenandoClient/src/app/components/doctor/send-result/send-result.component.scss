@@ -1,0 +1,15 @@
+.send-result-title {
+  font-weight: bolder;
+  font-size: 25px;
+  color: #004563;
+}
+.form-container {
+  background-color: white;
+  padding: 5px 10px;
+}
+.download-result {
+  cursor: pointer;
+}
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 210px !important;
+}

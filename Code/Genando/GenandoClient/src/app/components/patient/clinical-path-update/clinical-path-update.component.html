@@ -1,0 +1,102 @@
+<div class="d-flex justify-content-between align-items-center">
+  <div class="content--title">Clinical Path</div>
+  <button
+    (click)="navigateBack()"
+    class="border-0 d-flex gap-2 align-items-center bg-secondary-gray shadow-sm px-3 py-1"
+  >
+    <i class="bi bi-arrow-left"></i>
+    <span class="font-15">Back</span>
+  </button>
+</div>
+<div class="content--container">
+        <div class="clinical-path-list" *ngIf="clinicalForm">
+          <form
+            *ngIf="getQuestionFormArray()"
+            [formGroup]="clinicalForm"
+            (submit)="onSubmit()"
+          >
+            <div formArrayName="questions">
+              <div
+                class="mb-4"
+                *ngFor="let item of items.controls; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="d-flex">
+                  <span class="question-sr-no me-2">Q-{{ i + 1 }}</span>
+                  <span class="clinical-question">{{
+                    item.value.question
+                  }}<span class="text-danger" *ngIf="item.value.isQuestionMandatory">&nbsp;*</span></span>
+                </div>
+
+                <div [ngSwitch]="item.value.typeOfQuestion" class="align-items-center">
+                  <div *ngSwitchCase="1" class="align-items-center">
+                    <app-input
+                      [className]="'form-control '"
+                      [type]="'text'"
+                      [parentForm]="getParentForm(i)"
+                      title="Answer"
+                      [required]="item.value.isQuestionMandatory"
+                      placeholder="Write your answer here..."
+                      controlName="answer"
+                      [name]="''+i"
+                    ></app-input>
+                  </div>
+
+                  <div *ngSwitchCase="2" class="align-items-center">
+                    <app-checkbox
+                      [options]="getDropdownItems(i)"
+                      [answers]="item.value.answer ? item.value.answer : ''"
+                      [parentForm]="getParentForm(i)"
+                      [controlName]="'answer'"
+                      [required]="item.value.isQuestionMandatory"
+                      (selectionChange)="
+                        handleCheckboxSelectionChange($event, i)
+                      "
+                      [index]="i"
+                    ></app-checkbox>
+                  </div>
+
+                  <div *ngSwitchCase="3" class="align-items-center">
+                    <app-radio-button
+                      [options]="getDropdownItems(i)"
+                      [selectedValue]="item.value.answer"
+                      [parentForm]="getParentForm(i)"
+                      [controlName]="'answer'"
+                      [name]="'radio' + i"
+                    ></app-radio-button>
+                  </div>
+
+                  <div *ngSwitchCase="4" class="align-items-center">
+                    <app-drop-down
+                      [isInvalid]="true"
+                      [title]="'Question'"
+                      [parentForm]="getParentForm(i)"
+                      [controlName]="'answer'"
+                      [options]="getDropdownItems(i)"
+                      [selectValue]="item.value.answer ? item.value.answer : ''"
+                      [showLabel]="false"
+                    ></app-drop-down>
+                  </div>
+
+                  <div *ngSwitchDefault></div>
+                </div>
+              </div>
+            </div>
+            <div class="clinical-path-buttons ms-auto d-flex gap-3 ">
+              <app-button
+              [type]="'button'"
+              [className]="'button cancel-btn button--style'"
+              (btnClick)="onClear()"
+              [label]="'Cancel'"
+            ></app-button>
+              <app-button
+                [type]="'submit'"
+                [className]="'button submit-btn button--style'"
+                [label]="'Save'"
+                [iconClass]="'bi bi-file-earmark-text'"
+              ></app-button>            
+            </div>
+          </form>
+          <div [formGroup]="clinicalForm"></div>
+        </div>
+</div>

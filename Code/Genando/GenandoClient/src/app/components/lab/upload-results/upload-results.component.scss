@@ -1,0 +1,58 @@
+.profilepic-container {
+  display: flex;
+  justify-content: center;
+}
+.result-container {
+  display: flex;
+  gap: 20px;
+}
+.details-container {
+  width: 100%;
+}
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+}
+.referenceCode {
+  color: #0a4262 !important;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 700;
+}
+.referenceId {
+  color: #0a4262 !important;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 400;
+}
+.profileImg {
+  height: 73px;
+  width: 73px;
+}
+.download-result:hover span {
+  color: #1fa7e2 !important;
+  text-decoration: underline !important;
+}
+.download-result {
+  cursor: pointer;
+}
+.upload-app-input {
+  width: calc(100% - 116px);
+}
+.upload-app-button {
+  margin-top: 42px;
+  width: 106px;
+}
+@media (max-width: 569px) {
+  .profileImg {
+    display: block;
+    margin: 0 auto;
+  }
+  .result-container{
+    flex-direction: column;
+  }
+  .content--container{
+    padding: 0!important;
+  }
+}

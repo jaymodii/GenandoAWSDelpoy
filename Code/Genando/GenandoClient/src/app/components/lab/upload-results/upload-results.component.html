@@ -1,0 +1,165 @@
+<body>
+  <div class="container">
+    <div class="d-flex justify-content-between">
+      <div class="profileHeading">
+        <div *ngIf="patientInfo?.testResults" class="content--title">
+          Update Result
+        </div>
+        <div *ngIf="!patientInfo?.testResults" class="content--title">
+          Upload Result
+        </div>
+      </div>
+      <app-button
+        [label]="'Back'"
+        [type]="'button'"
+        [title]="'Back'"
+        [className]="'btn button--style cancel-button mt-2 mb-1'"
+        [iconClass]="'bi bi-arrow-left'"
+        (btnClick)="onBackButtonClick()"
+      ></app-button>
+    </div>
+
+    <div class="content--container">
+      <div class="result-container">
+        <div class="col-lg-1 col-md-2 col-sm-1 profilepic-container">
+          <img
+            src="{{
+              patientInfo?.gender === 'Male'
+                ? '/assets/images/profile-big3.png'
+                : '/assets/images/grid-profile-img-female.png'
+            }}"
+            alt="profile img"
+            class="profileImg"
+          />
+        </div>
+        <div class="details-container">
+          <label for="referenceId" class="referenceCode"
+            >Reference Code :</label
+          >
+          <span class="referenceId"> #12000{{ patientInfo?.id }}</span>
+          <hr />
+          <div class="profileDetailsContainer">
+            <form [formGroup]="profileForm">
+              <div class="row">
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="test" class="label--style">Test</label>
+                      <p>{{ patientInfo?.testTitle }}</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="dob" class="label--style"
+                        >Date of Birth</label
+                      >
+                      <p>
+                        {{ patientInfo?.dob | date : "yyyy-MM-dd" }} ({{
+                          patientInfo?.age
+                        }}yrs)
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                  <label for="gender" class="label--style">Gender</label>
+                  <p>{{ patientInfo?.gender }}</p>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <app-input
+                  title="Upload"
+                  type="file"
+                  className="upload d-none"
+                  placeholder=" "
+                  [parentForm]="profileForm"
+                  controlName="upload"
+                  ngDefaultControl
+                  (change)="onFileInputChange($event)"
+                  [showValidationMessage]="false"
+                  #fileInput
+                ></app-input>
+                <div class="row">
+                  <app-input
+                    class="col-md-9 col-xl-10 pe-0 upload-app-input"
+                    label="Upload"
+                    title="Report"
+                    type="text"
+                    className="upload"
+                    placeholder=" "
+                    [parentForm]="profileForm"
+                    controlName="fileName"
+                    [readonly]="true"
+                    ngDefaultControl
+                  ></app-input>
+                  <app-button
+                    class="col-md-3 col-xl-2 ps-0 upload-app-button"
+                    [label]="'Upload'"
+                    [iconClass]="'bi bi-upload'"
+                    [className]="'btn upload-button '"
+                    (btnClick)="onButtonClick()"
+                  ></app-button>
+                </div>
+              </div>
+              <!-- <a
+                class="download-result d-flex gap-1"
+                (click)="downloadResult()"
+                title="Download lab result"
+                ><i class="bi bi-file-earmark-pdf text-danger"></i
+                ><span class="text-dark">
+                  <b>Uploaded File: -</b
+                  >{{ selectedFile ? selectedFile.name : "No file uploded." }}
+                </span></a
+              > -->
+              <div class="col-md-7">
+                <app-input
+                  label="External Link"
+                  title="External Link"
+                  type="text"
+                  className="externalLink"
+                  placeholder=" "
+                  [parentForm]="profileForm"
+                  controlName="externalLink"
+                  ngDefaultControl
+                ></app-input>
+              </div>
+              <div class="col-md-7">
+                <app-textarea
+                  controlName="notes"
+                  [label]="'Notes'"
+                  [placeholder]="' '"
+                  [required]="true"
+                  [readonly]="false"
+                  [maxlength]="1000"
+                  [minlength]="5"
+                  [parentForm]="profileForm"
+                  [rows]="3"
+                  ngDefaultControl
+                ></app-textarea>
+              </div>
+
+              <!------------------------------- Button ---------------------------------->
+              <div
+                class="buttonContainer text-center d-flex justify-content-start mt-3 mb-5"
+              >
+                <app-button
+                  [label]="'Save'"
+                  [type]="'submit'"
+                  [title]="'Save'"
+                  [className]="'btn submit-button button--style me-2'"
+                  (btnClick)="onSaveButtonClick()"
+                ></app-button>
+                <app-button
+                  [label]="'Cancel'"
+                  [type]="'button'"
+                  [title]="'Cancel'"
+                  [className]="'btn cancel-button button--style'"
+                  (btnClick)="onCancelButtonClick()"
+                ></app-button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

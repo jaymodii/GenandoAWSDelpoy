@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="content--title">Dashboard</div>
+  <div class="row">
+    <div class="col-lg-9 col-md-8 patient-table content--container" *ngIf="data.length >= 1">
+      <app-table
+        [columns]="[
+          'Intrefcode',
+          'test',
+          'notes',
+          'isResultUploaded',
+          'deadline',
+          'action'
+        ]"
+        [dropDownList]="dropDownListArray"
+        [data]="data"
+        (dataItemOfDropdownClick)="dropDownClick($event)"
+      ></app-table>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+          <select
+            class="page-size"
+            [formControl]="pageSize"
+            (change)="pageSizeChange()"
+          >
+            <option [value]="item" *ngFor="let item of pageSizeOption">
+              {{ item }}
+            </option>
+          </select>
+          <span class="record-span">Records per page</span>
+        </div>
+        <app-pagination
+          [collectionSize]="totalRecords"
+          [pageSize]="pageListRequest.pageSize"
+          [page]="page"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
+      </div>
+    </div>
+    <div *ngIf="data.length < 1" class="fs-2 text-center col-lg-9 col-md-8">
+      Record Not Found
+    </div>
+    <div class="col-lg-3 col-md-4 pe-0 ps-4">
+      <app-linkbox [type]="1" [links]="quickLinks"></app-linkbox>
+    </div>
+  </div>
+</div>

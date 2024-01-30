@@ -1,0 +1,83 @@
+<section class="container">
+  <div class="content--title">Lab User</div>
+  <div class="tab-content-container">
+    <ng-container *ngIf="labUser; else addNewLab">
+      <div class="table-responsive bg-white table-padding">
+        <table class="table align-middle">
+          <thead class="bg-white">
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>DoB</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody class="p-4">
+            <tr>
+              <td>
+                <app-avatar-profile
+                  [avatar]="labUser.avatar"
+                  alt="Profile"
+                  class="avatar-icon rounded-circle"
+                  [gender]="labUser.gender"
+                  [username]="labUser.name"
+                >
+                </app-avatar-profile>
+              </td>
+              <td>
+                {{ labUser.email }}
+              </td>
+              <td>
+                {{ labUser.phoneNumber | phoneNumber }}
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <img
+                    src="/assets/images/ic-date.svg"
+                    alt="Calendar"
+                    height="20"
+                    width="20"
+                  />
+                  {{ labUser.dob | date : "dd/MMM/yyyy" }}
+                </div>
+              </td>
+              <td class="">
+                <div class="d-flex gap-2 align-items-center">
+                  <button class="btn-icon" (click)="navigateToLab(labUser.id)">
+                    <img
+                      src="/assets/images/ic-edit.svg"
+                      alt="Edit"
+                      class="table-icon"
+                    />
+                  </button>
+                  <button class="btn-icon" (click)="deleteUser(labUser)">
+                    <img
+                      src="/assets/images/ic-delete.svg"
+                      alt="Delete"
+                      class="table-icon"
+                    />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+
+    <ng-template #addNewLab>
+      <div class="text-center">
+        <p>There is no lab user registered by you.</p>
+        <app-button
+          type="button"
+          title="Add Lab User"
+          label="Add Lab User"
+          className="btn-primary-blue"
+          (btnClick)="navigateToRegister()"
+        >
+        </app-button>
+      </div>
+    </ng-template>
+  </div>
+</section>

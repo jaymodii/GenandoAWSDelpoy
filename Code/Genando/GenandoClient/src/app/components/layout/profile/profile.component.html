@@ -1,0 +1,218 @@
+<div *ngFor="let notification of notifications">
+  <p>{{ notification }}</p>
+</div>
+<ng-container *ngIf="isAvatarChanged; else profilePicture">
+  <app-header [avatar]="profile.avatar"></app-header>
+</ng-container>
+<ng-template #profilePicture>
+  <app-header></app-header>
+</ng-template>
+<body>
+  <div class="component-container">
+    <div class="profile-heading">
+      <div class="content--title">My Profile</div>
+    </div>
+    <div class="content--container">
+      <div class="profile-image-container">
+        <div class="profile-image-wrapper">
+          <div class="camera-image" (click)="openPictureFileDialog()">
+            <img src="assets/images/ic-take-photo.svg" class="camera-icon" />
+          </div>
+          <div class="profile-pic-container">
+            <img
+              [src]="
+                profile.avatar
+                  ? profile.avatar
+                  : 'assets/images/grid-user-no-img.png'
+              "
+              class="profile-image"
+            />
+          </div>
+          <input
+            #pictureFileInput
+            type="file"
+            name="pictureFile"
+            id="pictureFile"
+            style="display: none"
+            (change)="handlePictureFileChange($event)"
+          />
+        </div>
+        <div class="user-name">
+          {{ profile.firstName }} {{ profile.lastName }}
+        </div>
+        <div *ngIf="!isPatient" class="user-headline">
+          {{ profile.headline }}
+        </div>
+      </div>
+      <div class="profile-details-container">
+        <form [formGroup]="profileForm">
+          <!-- ----------------------------- First Name -------------------------------- -->
+          <div class="row">
+            <div [ngClass]="isPatient ? 'col-md-12' : 'col-md-6'">
+              <div class="row">
+                <div class="col-md-6">
+                  <app-input
+                    label="First Name"
+                    title="First Name"
+                    type="text"
+                    className="first-name"
+                    placeholder="First Name"
+                    [parentForm]="profileForm"
+                    controlName="firstName"
+                  ></app-input>
+                </div>
+
+                <!-- ----------------------------- Last Name -------------------------------- -->
+                <div class="col-md-6">
+                  <app-input
+                    [label]="'Last Name'"
+                    title="Last Name"
+                    type="text"
+                    className="last-name"
+                    placeholder="Last Name"
+                    [parentForm]="profileForm"
+                    controlName="lastName"
+                  ></app-input>
+                </div>
+              </div>
+            </div>
+
+            <!-- ----------------------------- Headline -------------------------------- -->
+            <div class="col-md-6" *ngIf="!isPatient">
+              <app-input
+                label="Headline"
+                title="Headline"
+                type="text"
+                className="headline"
+                placeholder="Headline"
+                [parentForm]="profileForm"
+                controlName="headline"
+              ></app-input>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Date of Birth -------------------------------- -->
+          <div class="row">
+            <div class="col-md-6">
+              <app-input
+                label="DOB"
+                title="Date Of Birth"
+                type="date"
+                placeholder="Date Of Birth"
+                [parentForm]="profileForm"
+                controlName="dob"
+              ></app-input>
+            </div>
+
+            <!-- --------------------------------- Gender -------------------------------- -->
+            <div class="col-md-6">
+              <app-drop-down
+                [isInvalid]="true"
+                [label]="'Gender'"
+                [title]="'Gender'"
+                [parentForm]="profileForm"
+                [controlName]="'genderDropdown'"
+                [options]="genderOptions"
+                [(ngModel)]="selectValue"
+                [ngModelOptions]="{ standalone: true }"
+                ngDefaultControl
+              ></app-drop-down>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Phone Number -------------------------------- -->
+          <div class="row">
+            <div class="col-md-6">
+              <app-input
+                label="Phone Number"
+                title="Phone Number"
+                type="tel"
+                className="phone-number"
+                placeholder="Phone Number"
+                [parentForm]="profileForm"
+                controlName="phoneNumber"
+                [maxlength]="10"
+                [validationMsg]="phoneNumberValidationMsg"
+                (keydown)="restrictInput($event)"
+                ngDefaultControl
+              ></app-input>
+            </div>
+
+            <!-- ----------------------------- Email -------------------------------- -->
+            <div class="col-md-6">
+              <app-input
+                label="Email"
+                title="Email"
+                type="email"
+                className="email"
+                placeholder="Email Address"
+                [parentForm]="profileForm"
+                controlName="email"
+                ngDefaultControl
+              ></app-input>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Address -------------------------------- -->
+          <div class="row">
+            <div class="col-md-12">
+              <app-textarea
+                [label]="'Address'"
+                [title]="'Address'"
+                [placeholder]="'Enter Your Address...'"
+                [required]="true"
+                [pattern]="'[a-zA-Z0-9 ]*'"
+                [readonly]="false"
+                [maxlength]="1000"
+                [minlength]="5"
+                controlName="address"
+                [parentForm]="profileForm"
+                [rows]="3"
+                ngDefaultControl
+              ></app-textarea>
+            </div>
+          </div>
+
+          <!-- ----------------------------- Button -------------------------------- -->
+          <div class="button-container text-center">
+            <app-button
+              [label]="'Update'"
+              [type]="'submit'"
+              [title]="'Update'"
+              [className]="'btn update-button button--style'"
+              (click)="updateProfileDetails()"
+            ></app-button>
+            <app-button
+              [label]="'Cancel'"
+              [type]="'button'"
+              [title]="'Cancel'"
+              [className]="'btn cancel-button button--style'"
+              (click)="cancelProfile()"
+            ></app-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<ng-template #modalContent>
+  <div class="container">
+    <form [formGroup]="profileForm">
+      <div class="h6">
+        Please enter OTP that was sent to below email:
+        {{ this.profileForm.value.email }}.
+      </div>
+      <app-input
+        label="Enter OTP"
+        class="py-2"
+        title="OTP"
+        type="text"
+        [maxlength]="6"
+        placeholder="Enter your OTP"
+        [parentForm]="verifyOtpForm"
+        controlName="otp"
+      ></app-input>
+      <br />
+    </form>
+  </div>
+</ng-template>

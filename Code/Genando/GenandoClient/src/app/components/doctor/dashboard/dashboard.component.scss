@@ -1,0 +1,84 @@
+.result-data-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #4e4e4e;
+}
+.external-link {
+  color: #1fa7e2;
+  cursor: pointer;
+  width: fit-content;
+}
+.external-link:hover {
+  text-decoration: underline !important;
+}
+.download-result:hover span {
+  color: #1fa7e2 !important;
+  text-decoration: underline !important;
+}
+.download-result {
+  cursor: pointer;
+}
+.modal-patient-name {
+  color: #004563;
+  font-size: larger;
+  font-weight: 500;
+}
+.modal-data-heading-line {
+  margin: 0.5rem 0px;
+}
+.modal-patient-avatar {
+  height: 72px;
+  width: 72px;
+  border-radius: 50%;
+}
+@media (max-width: 500px) {
+  .gap-sm {
+    gap: 20px;
+  }
+}
+
+//style for patient details
+.patient-name {
+  color: #064466;
+}
+.text-title {
+  color: #5b5b5b;
+}
+.text-details {
+  color: #a3a3a3;
+}
+.patient-details-modal {
+  display: flex;
+  gap: 10px;
+}
+.profile-picture-patient {
+  width: 10%;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+.patient-details {
+  width: 90%;
+}
+.app-avatar-profile {
+  width: 70px !important;
+}
+::ng-deep .custom-modal-class {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+@media screen and (max-width: 998px) {
+  .profile-picture-patient {
+    width: 15%;
+  }
+  .patient-details {
+    width: 85%;
+  }
+}
+@media screen and (max-width: 552px) {
+  .profile-picture-patient {
+    width: 20%;
+  }
+  .patient-details {
+    width: 80%;
+  }
+}

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="src\app\common\" />
+    <Folder Include="src\app\components\" />
+    <Folder Include="src\app\constants\" />
+    <Folder Include="src\app\directives\" />
+    <Folder Include="src\app\guards\" />
+    <Folder Include="src\app\interceptors\" />
+    <Folder Include="src\app\pipes\" />
+    <Folder Include="src\app\services\" />
+    <Folder Include="src\app\shared\components\" />
+    <Folder Include="src\app\shared\models\" />
+    <Folder Include="src\app\shared\services\" />
+    <Folder Include="src\app\utils\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.20" />
+  </ItemGroup>
+
+</Project>

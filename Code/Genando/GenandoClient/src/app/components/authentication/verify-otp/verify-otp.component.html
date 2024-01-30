@@ -1,0 +1,38 @@
+<div class="text-white login-box">
+  <p class="login-header fs-2 m-0">Hi, {{ userName }}</p>
+  <small
+    >2-step authentication is enabled.Check your Email id for the OTP.</small
+  >
+  <small>Enter that OTP in belowed field.</small>
+  <form
+    action=""
+    class="d-flex flex-column"
+    [formGroup]="verifyOtpForm"
+    (submit)="onSubmit()"
+  >
+    <app-input
+      class="py-2"
+      title="OTP"
+      type="text"
+      className="rounded-pill px-4 py-2 fs-6"
+      placeholder="Enter OTP"
+      [parentForm]="verifyOtpForm"
+      controlName="otp"
+    ></app-input>
+    <app-button
+      type="submit"
+      label="VERIFY"
+      iconClass="bi bi-arrow-right"
+      className="btn text-white rounded-pill my-3 px-4 submit-btn d-flex flex-row-reverse justify-content-between w-100 fs-6"
+      title="Submit"
+    ></app-button>
+  </form>
+  <div class="d-flex justify-content-between">
+    <small>Haven't recieved yet?</small>
+    <span class="cursor-pointer"
+      ><a (click)="resendOtp()"
+        ><i class="bi bi-arrow-counterclockwise"></i> Resend</a
+      ></span
+    >
+  </div>
+</div>

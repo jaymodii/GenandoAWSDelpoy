@@ -1,0 +1,19 @@
+:host {
+  width: 500px;
+}
+@media screen and (max-width: 1200px) {
+  :host {
+    width: 380px;
+  }
+}
+@media screen and (max-width: 992px) {
+  :host {
+    width: 70%;
+  }
+}
+.submit-btn {
+  background-color: #1ca9e1;
+}
+.cursor-pointer {
+  cursor: pointer;
+}

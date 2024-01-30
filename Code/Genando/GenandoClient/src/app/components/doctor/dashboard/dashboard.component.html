@@ -1,0 +1,301 @@
+<div class="content--title">Dashboard</div>
+<div class="row gap-sm items--sm--center">
+  <div class="col-lg-9 col-md-8 col-sm-6 content--container" *ngIf="data.length >= 1">
+    <app-table
+      [columns]="[
+        'patient',
+        'Test',
+        'Next Step',
+        'Expected Result Date',
+        'action'
+      ]"
+      [dropDownList]="dropDownListArray"
+      [data]="data"
+      (dataItemOfDropdownClick)="dropDownClick($event)"
+      (id)="openDialogPatientDetail($event)"
+      [openPatientDetailDialog]="true"
+    ></app-table>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-2">
+        <select
+          class="pagesize--selection"
+          [formControl]="pageSize"
+          (change)="pageSizeChange()"
+        >
+          <option [value]="item" *ngFor="let item of pageSizeOption">
+            {{ item }}
+          </option>
+        </select>
+        <span class="record--span">Records per page</span>
+      </div>
+      <app-pagination
+        [collectionSize]="totalRecords"
+        [pageSize]="pageListRequest.pageSize"
+        [page]="page"
+        (pageChange)="onPageChange($event)"
+      ></app-pagination>
+    </div>
+  </div>
+  <div *ngIf="data.length < 1" class="fs-2 text-center col-lg-9 col-md-8 col-sm-6">
+    Record Not Found
+  </div>
+  <div class="col-lg-3 col-md-4 col-sm-6 pe-0 ps-4 linkbox--sm--container">
+    <app-linkbox [type]="0" [links]="quickLinks"></app-linkbox>
+    <app-linkbox [type]="1" [links]="otherLinks"></app-linkbox>
+  </div>
+</div>
+<ng-template #resultDialogBox>
+  <ng-container *ngIf="patientLabResult">
+    <div class="d-flex gap-4 mb-4">
+      <div>
+        <img
+          class="modal-patient-avatar"
+          [src]="
+            patientLabResult.avatar
+              ? patientLabResult.avatar
+              : 'assets/images/grid-user-no-img.png'
+          "
+          alt=""
+        />
+      </div>
+      <div class="w-100">
+        <span class="modal-patient-name">{{
+          patientLabResult.firstName + " " + patientLabResult.lastName
+            | titlecase
+        }}</span>
+        <hr class="modal-data-heading-line" />
+        <div class="d-flex">
+          <div class="col d-flex flex-column gap-2">
+            <div class="d-flex flex-column">
+              <span class="result-data-title">Date of Birth</span>
+              <span
+                >{{ patientLabResult.dob | formatDate }} ({{
+                  patientLabResult.dob | calculateAge
+                }}
+                yrs)</span
+              >
+            </div>
+            <div class="d-flex flex-column">
+              <span class="result-data-title">Gender</span>
+              <span>{{
+                patientLabResult.gender === 1 ? "Male" : "Female"
+              }}</span>
+            </div>
+          </div>
+          <div class="col d-flex flex-column gap-2">
+            <div class="d-flex flex-column">
+              <span class="result-data-title">Email ID</span>
+              <span> {{ patientLabResult.email }} </span>
+            </div>
+          </div>
+          <div class="col d-flex flex-column gap-2">
+            <div class="d-flex flex-column">
+              <span class="result-data-title">Gender</span>
+              <span>{{
+                patientLabResult.gender === 1 ? "Male" : "Female"
+              }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-column mt-2">
+          <span class="result-data-title">External link</span>
+          <a
+            class="external-link"
+            target="_blank"
+            [href]="getFullExternalLink(patientLabResult.externalLink)"
+          >
+            {{ patientLabResult.externalLink }}
+          </a>
+        </div>
+        <div *ngFor="let item of patientLabResult.testResults">
+          <hr />
+          <div class="d-flex flex-column">
+            <span class="result-data-title">Test</span>
+            <span> {{ item.testTitle }} </span>
+          </div>
+          <div class="d-flex flex-column mt-2">
+            <span class="result-data-title">Attachment</span>
+            <a
+              class="download-result d-flex gap-1"
+              (click)="
+                downloadResult(
+                  item.clinicalProcessTestId,
+                  item.reportAttachmentTitle
+                )
+              "
+              title="Download lab result"
+              ><i class="bi bi-file-earmark-pdf text-danger"></i
+              ><span class="text-dark">
+                {{ item.reportAttachmentTitle }}
+              </span></a
+            >
+          </div>
+          <div class="d-flex flex-column mt-2">
+            <span class="result-data-title">Lab Notes</span>
+            <span [innerHtml]="item.labNotes"> </span>
+          </div>
+          <div
+            class="d-flex flex-column mt-2"
+            *ngIf="selectedOption === sendLabResults"
+          >
+            <span class="result-data-title">Doctor Notes</span>
+            <span [innerHtml]="item.doctorNotes"> </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+<ng-template #prescribeDialogBox>
+  <div class="d-flex gap-4 mb-4">
+    <div>
+      <img
+        class="modal-patient-avatar"
+        [src]="
+          patientTestDetail.avatar
+            ? patientTestDetail.avatar
+            : 'assets/images/grid-user-no-img.png'
+        "
+        alt=""
+      />
+    </div>
+    <div class="w-100">
+      <span class="modal-patient-name">{{
+        patientTestDetail.patientName | titlecase
+      }}</span>
+      <hr class="modal-data-heading-line" />
+      <div class="d-flex">
+        <div class="col d-flex flex-column gap-2">
+          <div class="d-flex flex-column">
+            <span class="result-data-title">Date of Birth</span>
+            <span
+              >{{ patientTestDetail.dob | formatDate }} ({{
+                patientTestDetail.dob | calculateAge
+              }}
+              yrs)</span
+            >
+          </div>
+          <div class="d-flex flex-column">
+            <span class="result-data-title">Gender</span>
+            <span>{{
+              patientTestDetail.gender === genderType ? "Male" : "Female"
+            }}</span>
+          </div>
+        </div>
+        <div class="col d-flex flex-column gap-2">
+          <div class="d-flex flex-column">
+            <span class="result-data-title">Email ID</span>
+            <span> {{ patientTestDetail.email }} </span>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column mt-2">
+        <span class="result-data-title mb-2">Select Tests:</span>
+        <app-checkbox
+          [options]="testDropdown"
+          [parentForm]="prescribeTestForm"
+          [controlName]="'testOptions'"
+          (selectionChange)="selectTest($event)"
+        ></app-checkbox>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #patientDetailDialogBox>
+  <div class="patient-details-modal">
+    <div class="profile-picture-patient">
+      <app-avatar-profile
+        [avatar]="avatarUrl ? avatarUrl : 'assets/images/grid-user-no-img.png'"
+        alt="Profile"
+        class="profile-picture d-flex"
+      >
+      </app-avatar-profile>
+    </div>
+    <div class="patient-details">
+      <div>
+        <h5 class="patient-name">{{ patientDetail.name }}</h5>
+        <hr />
+      </div>
+      <div>
+        <div class="row g-2">
+          <div class="col-lg-4 col-md-6 m-0">
+            <app-info-group
+              label="Date Of Birth"
+              [value]="
+                (patientDetail.dob | formatDate) +
+                ' (' +
+                (patientDetail.dob | calculateAge) +
+                ' yrs)'
+              "
+            >
+            </app-info-group>
+          </div>
+          <div class="col-lg-4 col-md-6 m-0">
+            <app-info-group label="Email ID" [value]="patientDetail.email">
+            </app-info-group>
+          </div>
+          <div class="col-lg-4 col-md-6 m-0">
+            <app-info-group label="Test" [value]="patientDetail.testName != '' ? patientDetail.testName : 'N/A' ">
+            </app-info-group>
+          </div>
+          <div class="col-lg-4 col-md-6 m-0">
+            <app-info-group
+              label="Test Cost"
+              [value]="patientDetail.testPrice.toString()"
+            >
+            </app-info-group>
+          </div>
+          <div class="col-lg-4 col-md-6 m-0">
+            <app-info-group
+              label="Estimated Date"
+              [value]="patientDetail.testName != '' ? (patientDetail.estimatedDate | date : 'd MMM y'): 'N/A'"
+            >
+            </app-info-group>
+          </div>
+        </div>
+      </div>
+      <!-- start of not implement functionality -->
+      <!-- <div class="my-2">
+              <div>
+                  <strong class="text-title small">Note</strong>
+              </div>
+              <div>
+                  <textarea name="" id="" cols="30" rows="3" class="w-100 border rounded-2"></textarea>
+                  <app-button className="btn update-button" label="Submit"></app-button>
+              </div>
+          </div>
+          <div class="mt-3">
+              <div>
+                  <strong class="text-title">Note History</strong>
+              </div>
+              <div>
+                  <div class="border-0 rounded-2 comment-details d-flex justify-content-between align-items-center py-2 px-3 my-3">
+                      <div class="d-flex flex-column">
+                          <div>
+                              <strong class="comment-title small">Hello(User)</strong>
+                              <span class="comment-title small mx-1">12 Aug 2023</span>
+                          </div>
+                          <small>Hello this is comment Hello this is comment</small>
+                      </div>
+                      <div>
+                          <i class="bi bi-trash comment-title"></i>
+                      </div>
+                  </div>
+                  <div class="border-0 rounded-2 comment-details d-flex justify-content-between align-items-center py-2 px-3 my-3">
+                      <div class="d-flex flex-column">
+                          <div>
+                              <strong class="comment-title small">Hello(User)</strong>
+                              <span class="comment-title small mx-1">12 Aug 2023</span>
+                          </div>
+                          <small>Hello this is comment Hello this is comment</small>
+                      </div>
+                      <div>
+                          <i class="bi bi-trash comment-title"></i>
+                      </div>
+                  </div>
+              </div>
+          </div> -->
+      <!-- end of not implement -->
+    </div>
+  </div>
+</ng-template>

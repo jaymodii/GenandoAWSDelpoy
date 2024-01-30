@@ -1,0 +1,72 @@
+<section class="container">
+  <h4 class="content--title">More Information</h4>
+  <section class="content--container" *ngIf="moreInfo$ | async as moreInfo">
+    <ng-container *ngIf="moreInfo.length > 0; else noInfoMessage">
+      <div class="questions">
+        <div *ngFor="let item of moreInfo; let i = index">
+          <p>
+            <label class="lb-question">{{ i + 1 | questionNumberPipe }}</label>
+            {{ item.question }}
+          </p>
+          <textarea
+            class="form-control"
+            [(ngModel)]="item.answer"
+            rows="3"
+            placeholder="Type your Answer here"
+          ></textarea>
+          <ng-container *ngIf="require">
+            <span class="text-danger" *ngIf="!item.answer">
+              Answer is required.
+            </span>
+          </ng-container>
+
+          <hr *ngIf="moreInfo.length - 1 !== i" />
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="d-flex mt-4 align-items-center gap-2 justify-content-end">
+        <app-button
+          type="button"
+          title="Save"
+          label="Save"
+          className="btn btn-primary-blue"
+          (btnClick)="onSave(moreInfo)"
+        >
+        </app-button>
+        <app-button
+          type="button"
+          title="Send"
+          label="Send"
+          className="btn btn-primary-blue"
+          (btnClick)="onSend(moreInfo)"
+        >
+        </app-button>
+        <app-button
+          type="button"
+          title="Cancel"
+          label="Cancel"
+          className="btn btn-cancel-gray"
+          (btnClick)="navigateBack()"
+        >
+        </app-button>
+      </div>
+      <!-- Actions -->
+    </ng-container>
+
+    <!-- Message to show when moreInfo is empty -->
+    <ng-template #noInfoMessage>
+      <div class="text-center">
+        <p>Doctor questions will appear here when asked.</p>
+        <app-button
+          type="button"
+          title="Go To Dashboard"
+          label="Go To Dashboard"
+          className="btn btn-cancel-gray"
+          (btnClick)="navigateBack()"
+        >
+        </app-button>
+      </div>
+    </ng-template>
+  </section>
+</section>

@@ -1,0 +1,37 @@
+<form [formGroup]="filterForm">
+  <div class="filter-container col-12 mb-2">
+    <div class="content--title col-sm-10 col-md-2">Patients</div>
+    <div class="filtergroup-container col-sm-11 col-lg-9">
+      <div class="input-group col-sm-12 col-md-5 col-lg-4 search-container">
+        <span class="input-group-text bg-white">
+          <i class="bi bi-search"></i>
+        </span>
+        <input type="text" class="form-control border-start-0 ps-0" placeholder="Search: Name / Email / Phone"
+          formControlName="search" />
+      </div>
+      <div class="drop-select-container col-sm-12 col-md-8 col-lg-7">
+        <div class="filter-dropdown col-sm-12 col-lg-5">
+        <label for="gender" class="d-inline">Gender:</label>
+        <select name="gender" id="gender" class="form-select flex-grow-0" formControlName="gender">
+          <option value="" selected>All</option>
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+        </select>
+        </div>
+        <div class="filter-dropdown col-lg-5">
+        <label for="status" class="d-inline">Status:</label>
+        <select name="status" id="status" class="form-select flex-grow-0" formControlName="status">
+          <option value="" selected>All</option>
+          <option *ngFor="let status of consultationStatus" [value]="status">
+            {{ status | patientDashboardStatus }}
+          </option>
+        </select>
+        </div>
+        <div class="plus-container col-lg-2">
+          <img src="/assets/images/bi-btn-plus.svg" alt="Add new patient" (click)="navigateToRegisterPatient()"
+            class="cursor--pointer" />
+        </div>  
+      </div>
+    </div>
+  </div>
+</form>

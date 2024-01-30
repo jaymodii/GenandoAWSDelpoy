@@ -1,0 +1,572 @@
+.header-navContainer,
+.header-container {
+  background: linear-gradient(to right, #3ea2ef 0%, #3ea4ed 20%, #3dbcdc 100%);
+}
+.header-container {
+  height: 85px;
+  padding-inline: 17%;
+  justify-content: space-between;
+}
+.header-nav-container {
+  padding: 0;
+  margin-bottom: 25px;
+}
+.logo-link {
+  padding-top: 0;
+  margin-top: 22px;
+}
+.genando-logo {
+  height: 107px;
+  width: 160px;
+}
+.icon-container {
+  margin-left: 3rem;
+  height: 100%;
+}
+.icon-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  gap: 20px;
+}
+.icon-item {
+  padding-inline: 6px;
+}
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 8px !important;
+}
+.icon-text,
+.icon-text:active {
+  color: #ffffff;
+  text-align: center;
+  padding-bottom: 0;
+  // padding-inline: 1px !important;
+  font-size: 1.05em !important;
+}
+.icon-item {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.icon {
+  height: 23px;
+}
+.bi-bell {
+  font-size: 27px;
+  color: #ffffff;
+  cursor: pointer;
+  padding-bottom: 20px;
+}
+.bell-icon-container {
+  margin-bottom: 15px;
+}
+.button-container {
+  display: flex;
+  align-items: center;
+}
+.dropdown-toggle::after {
+  display: none;
+}
+.bell-dropdown {
+  width: 1050% !important;
+  margin-top: 39px !important;
+}
+.number-circle {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  border-radius: 50%;
+  width: 21px;
+  height: 21px;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid #fff;
+  color: #37a0de;
+  text-align: center;
+  font: 10px Arial, sans-serif;
+  cursor: pointer;
+}
+.notification-heading {
+  color: #0a4262;
+  margin-left: -35px;
+  font-weight: 500;
+  font-size: 1.07em;
+}
+.notification-clear-all {
+  background-color: #fffefe;
+  color: #37a0de;
+  font-weight: 400;
+  font-size: 1.04em;
+  border: none !important;
+  padding: 0px !important;
+}
+.notification-clear-all:not(:disabled):hover {
+  color: darkgray;
+  cursor: pointer;
+}
+.notification-read-all {
+  background-color: #fffefe;
+  color: #37a0de;
+  font-weight: 400;
+  font-size: 1.04em;
+  border: none !important;
+  padding: 0px !important;
+  margin-left: 29px;
+}
+.scrollable-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+.notification-read-all:not(:disabled):hover {
+  color: darkgray;
+  cursor: pointer;
+}
+.notification-back {
+  background-color: #fffefe;
+  color: #37a0de;
+  font-weight: 400;
+  font-size: 1.04em;
+  border: none !important;
+  padding: 0px !important;
+  margin-left: 65px;
+}
+.notification-back:not(:disabled):hover {
+  color: darkgray;
+  cursor: pointer;
+}
+.notification-swipe-back {
+  background-color: #fffefe;
+  color: #37a0de;
+  font-weight: 400;
+  font-size: 1.04em;
+  border: none !important;
+  padding: 0px !important;
+  margin-left: 40px;
+}
+.notification-back:not(:disabled):hover {
+  color: darkgray;
+  cursor: pointer;
+}
+.notification-save-settings {
+  background-color: #fffefe;
+  color: #37a0de;
+  font-weight: 400;
+  font-size: 1.04em;
+  border: none !important;
+  padding: 0px !important;
+  margin-left: 337px;
+}
+.notification-save-settings:not(:disabled):hover {
+  color: darkgray;
+  cursor: pointer;
+}
+.infoCircleDiv {
+  width: 50.44px !important;
+}
+.bi-info-circle {
+  font-size: 25px;
+}
+.notification-message {
+  font-size: 1.05em;
+  width: 350px !important;
+  // white-space: initial;
+  // overflow-wrap: break-word!important;
+
+  // white-space: pre-wrap;
+  // white-space: -moz-pre-wrap;
+  // white-space: -pre-wrap;
+  // white-space: -o-pre-wrap;
+  // word-wrap: break-word;
+  max-width: 177%; /* You can adjust the maximum width as needed */
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+.notification-time {
+  color: darkgray;
+}
+.bi-circle-fill {
+  color: #3ea2ef;
+  font-size: 9px;
+  padding-left: 9px;
+  background-image: -webkit-radial-gradient(
+    hsla(200, 100%, 90%, 1) 0%,
+    hsla(200, 100%, 70%, 1) 20%,
+    hsla(200, 100%, 60%, 0.3) 28%,
+    hsla(200, 100%, 30%, 0) 70%
+  );
+}
+.bi-three-dots-vertical {
+  padding-left: 145px;
+}
+.bi-gear-fill {
+  margin-left: 8px;
+}
+.dropdown-content {
+  width: 81px;
+  height: 33px;
+  margin-left: 81px;
+  background-color: white;
+  right: 5px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1;
+}
+.gear-dropdown-content {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: -1px;
+  right: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1;
+}
+hr {
+  margin: 0.5rem !important;
+}
+.no-notifications-message {
+  color: rgb(62 72 84 / 65%);
+  margin-left: 0.5rem;
+  font-weight: 400;
+  font-size: 1.07em;
+}
+.notification-dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  gap: 0px !important;
+  cursor: pointer;
+  user-select: none !important;
+}
+.active {
+  background-color: #37a0de;
+}
+.btn.dropdown-toggle::after {
+  content: none;
+}
+.profile-pic {
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+}
+.profile-button {
+  height: 100%;
+  align-items: center;
+  border: none !important;
+  padding-top: 0 !important;
+  padding: 0px 10px !important;
+  display: flex;
+  gap: 9px;
+  border-radius: 0;
+}
+.profile-button:active,
+:visited {
+  border: none !important;
+  background-color: #37a0de;
+
+}
+.profile-button-container {
+  padding-inline: 8px;
+}
+.dropdown.show .btn {
+  background-color: #37a0de;
+}
+.profile-container,
+.profile-button-container {
+  height: 100%;
+}
+.profile-dropdown {
+  display: inline-block;
+  position: relative;
+}
+.profile-button {
+  background: transparent;
+  color: #ffffff;
+  border: none;
+}
+.dropdown-menu {
+  min-width: auto;
+}
+.dropdown-menu-text {
+  color: #747475 !important;
+  font-size: medium;
+}
+.profile-dropdown-icons {
+  height: 20px;
+}
+.dropdown-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+.dropdown-item:hover {
+  background-color: #ebf2f3;
+}
+.dropdown.show {
+  display: flex;
+  margin-top: 0px;
+  border-radius: 0;
+}
+.dropdown-menu {
+  left: 10px;
+  margin-top: 0;
+  border-radius: 0;
+  width: 89.5%;
+  border: none;
+  background-color: #fffefe;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1), 0px 3px 10px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.my-profile-icon {
+  width: 17px;
+}
+.user-name {
+  font-size: 1.05em;
+}
+.swipe-right-button {
+  margin-left: 8px;
+  width: 29em;
+  height: 2em;
+  font-size: 15px;
+  font-family: inherit;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+.swipe-right-button::before {
+  content: "";
+  width: 0;
+  height: 2em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to right,
+    #3ea2ef 0%,
+    #5ba6dd 20%,
+    #3dbcdc 100%
+  );
+  transition: 0.5s ease;
+  display: block;
+  z-index: -1;
+}
+.swipe-right-button:hover {
+  color: white;
+}
+.swipe-right-button:hover::before {
+  width: 29em;
+}
+.swipe-left-button {
+  margin-left: 8px;
+  width: 29em;
+  height: 2em;
+  font-size: 15px;
+  font-family: inherit;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+.swipe-left-button::before {
+  content: "";
+  width: 0;
+  height: 2em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: linear-gradient(
+    to left,
+    #3ea2ef 0%,
+    #5ba6dd 20%,
+    #3dbcdc 100%
+  );
+  transition: 0.5s ease;
+  display: block;
+  z-index: -1;
+}
+.swipe-left-button:hover {
+  color: white;
+}
+.swipe-left-button:hover::before {
+  width: 29em;
+}
+.drop-menu-profile{
+  left:7px!important;
+}
+@media (max-width: 767px) {
+  .dropdown-menu{
+    left: -97px;
+  } 
+}
+@media (max-width: 768px) {
+  .header-container {
+    padding-inline: 2%;
+  }
+  .bell-dropdown{
+    margin-top: 22px!important;
+    width: 1016% !important;
+  }
+}
+
+@media (min-width:501px) and (max-width:768px){
+  .logo-link img{
+    width: 60%;
+    height: 60%;
+  }
+  .logo-link{
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+  }
+  .header-container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .profile-container{
+    margin: 0px;  
+  }
+  #navbarNav{
+    margin: 0px;
+  }
+}
+
+@media (min-width:1000px) and (max-width: 1025px) {
+  .header-container {
+    padding-inline: 4% !important;
+  }
+  .icon-text,.icon-text:active{
+    padding-inline: 10px!important  ;
+  }
+  .icon-container {
+    margin-left: 0 !important;
+  }
+  .icon-list{
+    gap: 0;
+  }
+  .dropdown-menu{
+    left: 8px;
+    width: 91.8%;
+  }
+}
+@media (min-width: 769px) and (max-width: 994px) {
+  .genando-logo {
+    height: 93px;
+    width: 126px;
+  }
+  .profile-container {
+    margin-left: 0 !important;
+  }
+  .profile-button-container {
+    padding-inline: 0;
+  }
+  .header-container {
+    justify-content: center !important;
+    height: 70px;
+  }
+  .icon-container {
+    margin-left: 0 !important;
+  }
+  .icon-list {
+    gap: 0 !important;
+  }
+  .padding-remove {
+    padding-inline: 0 !important;
+  }
+  .dropdown-menu{
+    padding-inline: 10px!important;
+    left: 0;
+    width: 100%;
+  }
+  .icon-text,.icon-text:active{
+    padding-inline: 10px!important  ;
+  }
+}
+
+@media (min-width: 2560px) {
+  .icon-list {
+    gap: 45px;
+  }
+  .header-container {
+    padding-inline: 17%;
+  }
+
+}
+
+@media (max-width: 500px) {
+  .icon-list {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: -50px;
+    gap: 0;
+  }
+  .icon {
+    height: 15px;
+  }
+  .icon-item {
+    padding-inline: 1px;
+    width: 100%;
+  }
+  .icon-text {
+    font-size: 0.75em;
+    padding-inline: 1px !important;
+  }
+  .header-container {
+    height: 100%;
+    flex-direction: column;
+  }
+  .profile-button-container {
+    // margin-left: -57px;
+    padding-bottom: 3px;
+  }
+  .header-nav-container {
+    margin-bottom: 0;
+  }
+  .logo-link {
+    margin-top: 0;
+  }
+  // nav {
+  //   position: sticky;
+  //   top: 0;
+  //   z-index: 1999;
+  // }
+  .nav-link {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+  }
+  .profile-pic {
+    height: 26px;
+    width: 26px;
+  }
+  .genando-logo {
+    height: 43px;
+    width: 66px;
+  }
+  .bi-bell{
+    font-size: 20px;
+  }
+  .number-circle{
+    top:3px;
+    right: 3px;
+    height: 16px;
+    width: 16px;
+    padding: 2px; 
+  }
+}

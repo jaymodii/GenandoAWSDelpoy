@@ -1,0 +1,56 @@
+<div class="text-white login-box">
+  <h2>Sign in</h2>
+  <form
+    action=""
+    class="d-flex flex-column"
+    [formGroup]="loginForm"
+    (submit)="onSubmit()"
+  >
+    <app-input
+      class="py-2"
+      title="Email"
+      type="email"
+      className="rounded-pill px-4 py-2 fs-6"
+      placeholder="Email Address"
+      [parentForm]="loginForm"
+      controlName="email"
+      [validationMsg]="emailValidationMsg"
+    ></app-input>
+
+    <app-input
+      class="py-2"
+      title="Password"
+      type="password"
+      className="rounded-pill px-4 py-2 fs-6"
+      placeholder="Password"
+      [parentForm]="loginForm"
+      controlName="password"
+      [validationMsg]="passwordValidationMsg"
+    ></app-input>
+
+    <div class="d-flex justify-content-between mx-2">
+      <div>
+        <input
+          type="checkbox"
+          id="check-remember"
+          (change)="rememberMeClick($event)"
+        />
+        <label class="mx-2" for="check-remember">Remember Me</label>
+      </div>
+      <span class="cursor-pointer"
+        ><a
+          [routerLink]="forgotPasswordUrl"
+          class="text-decoration-none text-white"
+          >Forgot Password?</a
+        ></span
+      >
+    </div>
+    <app-button
+      type="submit"
+      label="SIGN IN"
+      iconClass="bi bi-arrow-right"
+      className="btn text-white rounded-pill my-3 px-4 submit-btn d-flex flex-row-reverse justify-content-between w-100 fs-6"
+      title="Submit"
+    ></app-button>
+  </form>
+</div>

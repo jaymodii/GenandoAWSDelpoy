@@ -1,0 +1,60 @@
+.content--container {
+  align-items: center;
+}
+.left-right-container {
+  display: flex;
+  margin-top: 47px;
+  min-height: 50vh;
+}
+.left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-left: 11px;
+}
+.right-container {
+  display: flex;
+  justify-content: center !important;
+  align-items: flex-start;
+}
+.icon-logo {
+  width: 35px;
+}
+.details {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 767px) and (max-width: 994px) {
+  .right-container {
+    position: relative;
+  }
+  .all-device-logo {
+    top: -31px;
+    scale: 0.7;
+    position: absolute;
+  }
+}
+@media (max-width:500px){
+  .left-right-container{
+    flex-direction: column;
+    margin-top: 0;
+  }
+  .left-container{
+    gap:12px;
+    padding-left: 15px;
+  }
+  .all-device-logo{
+    scale: 0.8;
+  }
+
+}
+@media (max-width:400px){
+  .all-device-logo{
+    scale: 0.6;
+  }
+}

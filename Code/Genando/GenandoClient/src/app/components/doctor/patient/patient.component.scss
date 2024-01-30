@@ -1,0 +1,28 @@
+.table thead th {
+  padding-bottom: 18px !important;
+  color: #575757;
+}
+.table tbody tr td {
+  padding: 1rem !important;
+  color: #646464;
+}
+.avatar-icon {
+  width: 50px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.pill-box {
+  font-size: 16px;
+  color: white;
+  width: 100px;
+  padding: 2px 0;
+}
+.status-new {
+  background-color: #1ccce2;
+}
+.status-on-going {
+  background-color: #f3b74b;
+}
+.status-done {
+  background-color: #5ada86;
+}

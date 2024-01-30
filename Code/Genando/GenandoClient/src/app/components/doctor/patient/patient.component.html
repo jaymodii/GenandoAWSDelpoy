@@ -1,0 +1,36 @@
+<section class="container">
+  <filter-patient [filterForm]="filterForm"></filter-patient>
+  <ng-container *ngIf="patientsRecords">
+    <div class="shadow-sm content--container" *ngIf="patientsRecords.content.length >= 1">
+      <app-table
+        [columns]="['patient', 'email', 'Phone', 'dob', 'status', 'Action']"
+        [data]="patientsRecords.content"
+        (edit)="navigateToPatient($event)"
+        (delete)="deleteUser($event)"
+      ></app-table>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+          <select
+            class="pagesize--selection"
+            [formControl]="pageSize"
+            (change)="pageSizeChange()"
+          >
+            <option [value]="item" *ngFor="let item of pageSizeOption">
+              {{ item }}
+            </option>
+          </select>
+          <span class="record--span">Records per page</span>
+        </div>
+        <app-pagination
+          [collectionSize]="patientsRecords.totalRecords"
+          [pageSize]="filterRequest.pageRequest!.pageSize!"
+          [page]="filterRequest.pageRequest!.pageNumber!"
+          (pageChange)="onPageChange($event)"
+        ></app-pagination>
+      </div>
+    </div>
+    <div *ngIf="patientsRecords.content.length < 1" class="fs-2 text-center">
+      Record Not Found
+    </div>
+  </ng-container>
+</section>

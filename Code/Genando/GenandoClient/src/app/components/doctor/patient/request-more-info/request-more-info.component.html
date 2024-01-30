@@ -1,0 +1,125 @@
+<div class="container">
+  <p class="content--title">Request More Information</p>
+  <div class="content--container">
+    <ng-container *ngIf="patientClinicalProfile; else noUserFound">
+      <div class="d-flex flex-wrap column-gap--8">
+        <app-info-group
+          label="Patient Name"
+          [value]="patientClinicalProfile.name"
+        >
+        </app-info-group>
+        <app-info-group label="Test" [value]="patientClinicalProfile.testTitle">
+        </app-info-group>
+        <app-info-group
+          label="Date Of Birth"
+          [value]="
+            (patientClinicalProfile.dob | formatDate) +
+            ' (' +
+            (patientClinicalProfile.dob | calculateAge) +
+            ' yrs)'
+          "
+        >
+        </app-info-group>
+        <app-info-group label="Email ID" [value]="patientClinicalProfile.email">
+        </app-info-group>
+        <app-info-group
+          label="Gender"
+          [value]="patientClinicalProfile.gender | genderTitle"
+        >
+        </app-info-group>
+        <app-info-group
+          label="Reference Code"
+          [value]="'#' + patientClinicalProfile.referenceCode"
+        >
+        </app-info-group>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="col-1">No.</th>
+              <th class="col-8">Question</th>
+              <th class="col-1 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let que of questions; let i = index">
+              <td>
+                {{ i + 1 | questionNumberPipe }}
+              </td>
+              <td>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="que.question"
+                  placeholder="Type your question here."
+                />
+              </td>
+              <td class="text-center">
+                <img
+                  src="/assets/images/ic-delete.svg"
+                  alt="Delete"
+                  height="20"
+                  (click)="deleteQuestion(que.id)"
+                  class="cursor--pointer"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Actions -->
+      <div class="d-flex justify-content-between align-items-center">
+        <img
+          src="/assets/images/bi-btn-plus.svg"
+          alt="Add new question"
+          class="cursor--pointer"
+          height="45"
+          (click)="addNewQuestion()"
+        />
+        <div class="d-flex align-items-center gap-2">
+          <app-button
+            type="button"
+            title="Save"
+            label="Save"
+            className="btn-primary-blue"
+            [disabled]="questions.length === 0"
+            (btnClick)="onSave()"
+          >
+          </app-button>
+          <app-button
+            type="button"
+            title="Send"
+            label="Send"
+            className="btn-primary-blue"
+            [disabled]="questions.length === 0"
+            (btnClick)="onSend()"
+          >
+          </app-button>
+          <app-button
+            type="button"
+            title="Cancel"
+            label="Cancel"
+            className="btn-cancel-gray"
+            (btnClick)="navigateBack()"
+          >
+          </app-button>
+        </div>
+      </div>
+      <!-- Actions -->
+    </ng-container>
+    <ng-template #noUserFound>
+      <div class="text-center mt-4">
+        <p class="h6 mb-2">Patient Clinical Profile Not Found.</p>
+        <app-button
+          type="button"
+          title="Back To Dashboard"
+          label="Back To Dashboard"
+          className="btn-cancel-gray"
+          [routerLink]="['/dashboard']"
+        >
+        </app-button>
+      </div>
+    </ng-template>
+  </div>
+</div>

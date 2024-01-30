@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between">
+  <span class="content--title"> {{ pageTitle }} </span>
+  <app-button
+    label="Back"
+    className="back-button"
+    iconClass="bi bi-arrow-left"
+    routerLink="/doctor/dashboard"
+  ></app-button>
+</div>
+<div class="clinical-container mt-2">
+  <div *ngIf="clinicalQA.length === 0" class="h4 d-flex justify-content-center">
+    No records found or Patient haven't answered any question.
+  </div>
+  <div class="clinical-row" *ngFor="let item of clinicalQA; let i = index">
+    <div class="clinical-question-container mb-1 d-flex gap-2">
+      <span class="clinical-question-number">Q-{{ i + 1 }} </span>
+      <span class="clinical-question">{{ item.question }}</span>
+    </div>
+    <div class="clinical-answer-container d-flex gap-2">
+      <span class="clinical-answer-abrv">Ans :-</span>
+      <span class="clinical-answer"> {{ item.answer }} </span>
+    </div>
+    <hr *ngIf="clinicalQA.length !== i + 1" />
+  </div>
+</div>

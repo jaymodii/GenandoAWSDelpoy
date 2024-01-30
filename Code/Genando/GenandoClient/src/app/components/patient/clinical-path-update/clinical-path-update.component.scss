@@ -1,0 +1,26 @@
+.question-sr-no {
+  color: rgb(82, 194, 243);
+  font-weight: bold;
+}
+.question-sr-no,
+.clinical-question {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.clinical-question {
+  font-weight: 500;
+  color: rgb(78, 78, 78);
+}
+.clinical-path-list {
+  padding-inline: 20px;
+  border-radius: 4px;
+}
+.clinical-path-buttons {
+  width: fit-content;
+}
+.question-type-container{
+  align-items: center!important;
+}
+.question-type{
+  width:123px!important;
+}

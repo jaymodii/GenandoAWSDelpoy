@@ -1,0 +1,13 @@
+.component-container {
+  padding-inline: 17%;
+}
+@media (max-width: 768px) {
+  .component-container {
+    padding-inline: 2%;
+  }
+}
+@media (max-width: 1025px) {
+  .component-container {
+    padding-inline: 4% !important;
+  }
+}

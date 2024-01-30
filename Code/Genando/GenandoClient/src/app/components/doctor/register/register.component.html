@@ -1,0 +1,118 @@
+<section class="container">
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="content--title">{{ formTitle }}</div>
+    <button
+      (click)="navigateBack()"
+      class="border-0 d-flex gap-2 align-items-center bg-secondary-gray shadow-sm px-3 py-1"
+    >
+      <i class="bi bi-arrow-left"></i>
+      <span class="font-15">Back</span>
+    </button>
+  </div>
+  <div class="content--container border p-3 form-container">
+    <form class="row g-3" (ngSubmit)="onSubmit()">
+      <div class="col-md-4">
+        <app-input
+          label="First Name"
+          labelClass="reg-form-label"
+          type="text"
+          title="First Name"
+          placeholder="evan"
+          [parentForm]="userForm"
+          controlName="firstName"
+        >
+        </app-input>
+      </div>
+      <div class="col-md-4">
+        <app-input
+          label="Last Name"
+          labelClass="reg-form-label"
+          type="text"
+          title="Last Name"
+          placeholder="donohue"
+          [parentForm]="userForm"
+          controlName="lastName"
+        >
+        </app-input>
+      </div>
+      <div class="col-md-4">
+        <app-input
+          label="Email"
+          labelClass="reg-form-label"
+          type="email"
+          title="Email"
+          placeholder="evan.donohue@gmail.com"
+          [parentForm]="userForm"
+          controlName="email"
+          [readonly]="!isAddMode"
+        >
+        </app-input>
+      </div>
+      <div class="col-md-4">
+        <app-input
+          label="Date Of Birth"
+          labelClass="reg-form-label"
+          type="date"
+          placeholder="Date Of Birth"
+          title="Date Of Birth"
+          [parentForm]="userForm"
+          controlName="dateOfBirth"
+        >
+        </app-input>
+      </div>
+      <div class="col-md-4">
+        <app-input
+          label="Phone Number"
+          labelClass="reg-form-label"
+          type="text"
+          placeholder="9865311045"
+          [onlyNumbers]="true"
+          [parentForm]="userForm"
+          [maxlength]="10"
+          [minlength]="10"
+          title="Phone Number"
+          controlName="phoneNumber"
+        >
+        </app-input>
+      </div>
+      <div class="col-md-4">
+        <app-drop-down
+          [parentForm]="userForm"
+          labelClass="reg-form-label"
+          label="Gender"
+          controlName="gender"
+          title="Gender"
+          [options]="genderOptions"
+        >
+        </app-drop-down>
+      </div>
+      <div>
+        <app-textarea
+          [parentForm]="userForm"
+          label="Address"
+          controlName="address"
+          labelClass="reg-form-label"
+          placeholder="Enter your address..."
+          title="Address"
+        ></app-textarea>
+      </div>
+      <div class="d-flex gap-2 justify-content-end">
+        <app-button
+          type="submit"
+          [title]="submitButtonText"
+          [label]="submitButtonText"
+          className="btn-primary-blue"
+        >
+        </app-button>
+        <app-button
+          type="button"
+          [title]="'Cancel'"
+          [label]="'Cancel'"
+          className="btn-cancel-gray"
+          (btnClick)="resetForm()"
+        >
+        </app-button>
+      </div>
+    </form>
+  </div>
+</section>

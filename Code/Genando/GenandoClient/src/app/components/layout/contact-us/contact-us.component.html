@@ -1,0 +1,47 @@
+<p class="content--title">Contact Genando</p>
+<div class="content--container">
+  <p class="content--subtitle">For any queries contact us at : </p>
+  <div class="left-right-container">
+    <div class="left-container col-md-6 col-sm-12">
+      <div class="details" *ngIf="userRole == '1' || userRole == '3'">
+        <div class="icon">
+          <img src="assets/images/ic-contact4.svg" alt="hospital" class="icon-logo" />
+        </div>
+        <div class="info">
+          <span class="bold--font">Contact Center</span>
+          <span class="content--font">Genando</span>
+        </div>
+      </div>
+      <div class="details" *ngIf="userRole == '2'">
+        <div class="icon">
+          <img src="assets/images/ic-contact1.svg" alt="Doctor" class="icon-logo">
+        </div>
+        <div class="info">
+          <span class="bold--font">Doctor Name</span>
+          <span class="content--font">{{contactName}}</span>
+        </div>
+      </div>
+      <div class="details">
+        <div class="icon">
+          <img src="assets/images/ic-contact2.svg" alt="Phone" class="icon-logo">
+        </div>
+        <div class="info">
+          <span class="bold--font">Phone</span>
+          <span class="content--font">{{contactNumber}}</span>
+        </div>
+      </div>
+      <div class="details">
+        <div class="icon">
+          <img src="assets/images/ic-contact3.svg" alt="Email" class="icon-logo">
+        </div>
+        <div class="info">
+          <span class="bold--font">Email</span>
+          <span class="content--font">{{contactEmail}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="right-container col-md-6 col-sm-12">
+      <img src="/assets/images/contact.jpg" alt="allDeviceLogo" class="all-device-logo">
+    </div>
+  </div>
+</div>

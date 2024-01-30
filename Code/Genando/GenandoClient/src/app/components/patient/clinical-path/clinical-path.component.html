@@ -1,0 +1,51 @@
+<div class="content--title">Clinical Path</div>
+<div class="main-clinical-path">
+    <div class="row">
+     
+      <div class="clinical-path-list">
+        <div class="clinical-path-list" *ngIf="clinicalForm">
+          <form
+            *ngIf="getQuestionFormArray()"
+            [formGroup]="clinicalForm"
+            (submit)="onSubmit()"
+          >
+            <div formArrayName="questions">
+              <div
+                class="my-4"
+                *ngFor="let item of items.controls; let i = index"
+                [formGroupName]="i"
+              >
+                <div class="d-flex mb-1">
+                  <span class="question-sr-no me-2">Q-{{ i + 1 }}</span>
+                  <span class="clinical-question">{{
+                    item.value.question
+                  }}</span>
+                </div>
+                <app-form-input-wrapper
+                  [className]="'form-control '"
+                  [type]="'text'"
+                  formControlName="answer"
+                ></app-form-input-wrapper>
+              </div>
+            </div>
+            <div class="clinical-path-buttons ms-auto d-flex gap-3">
+              <app-button
+                [type]="'submit'"
+                [className]="'button submit-btn button--style'"
+                [label]="'Save'"
+                [iconClass]="'bi bi-file-earmark-text'"
+              ></app-button>
+              <app-button
+                [type]="'button'"
+                [className]="'button cancel-btn button--style'"
+                (btnClick)="onCancel()"
+                [label]="'Cancel'"
+              ></app-button>
+            </div>
+          </form>
+          <div [formGroup]="clinicalForm"></div>
+        </div>
+      </div>
+    </div>
+  
+</div>
